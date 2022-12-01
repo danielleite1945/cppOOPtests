@@ -2,19 +2,21 @@
 #include <list>
 using namespace std;
 
-class reallifeobj {
+class animal {
 private:
-	string Name;
 	string Owner;
 	int Age;
 	list<string> Parents;
+protected:
+	string Name;
+	int TrainingQuality;
 
 public:
-	reallifeobj() {
-		Name = "";
-		Owner = "";
+	animal(string name,string owner) {
+		Name = name;
+		Owner = owner;
 		Age = 0;
-
+		TrainingQuality = 0; 
 	}
 
 	void Getdata() {
@@ -58,27 +60,57 @@ public:
 	void Setowner(string newowner) {
 		Owner = newowner;
 	};
+
+	void CheckAnalytics() {
+		if (TrainingQuality < 5)
+			cout << Name << " need more training sessions!" << endl;
+		else
+			cout << Name << " Is getting better at training" << endl;
+	}
 };
+
+class dog :public animal {
+public:
+	dog(string Name, string Owner) : animal(Name, Owner) {
+	}
+	void TrainingIncrement() {
+		cout << Name << "have trained " << "1" << " more time the fallow action: " << "bark" << "..." << endl;
+			TrainingQuality++;
+	}
+};
+class cat :public animal{
+public:
+	cat(string Name, string Owner):animal(Name,Owner){
+	}
+	void TrainingIncrement() {
+		cout << Name <<"have trained "<<"1"<<" more time the fallow action: " << "meow"<< "..." << endl;
+			TrainingQuality++;
+	}
+
+};
+
 
 int main()
 {
-	reallifeobj lifeobj;
+	dog dog1("jamelao","zoberson");
+	dog dog2("jame", "zob");
+	cat cat1("jujuba", "jucuba");
 
-	lifeobj.Subage();
-	/*---------------------*/
+	dog1.TrainingIncrement();
+	dog1.TrainingIncrement();
+	dog1.TrainingIncrement();
+	dog1.TrainingIncrement();
+	dog1.TrainingIncrement();
+	dog1.TrainingIncrement();
 
-	cout << "Nome Antigo: " << lifeobj.Getname() << endl;
-	lifeobj.Setname("Ameno");
+	dog2.TrainingIncrement();
+	dog2.TrainingIncrement();
 
-	/*---------------------*/
+	dog* dg = &dog1;
+	dog* dg2 = &dog2;
 
-	cout << "" << lifeobj.Getowner();
-	lifeobj.Setowner("beaba");
+	dg->CheckAnalytics();
+	dg2->CheckAnalytics();
 
-	/*---------------------*/
-	lifeobj.AddParent("mane");
-	lifeobj.AddParent("Jane");
-	lifeobj.RemoveParent("mane");
 
-	lifeobj.Getdata();
 };
